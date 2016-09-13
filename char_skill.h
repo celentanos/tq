@@ -16,7 +16,7 @@ private:
 
     int skillLength;
     QByteArray skillName;
-    QString skillName0;
+    QString skillName0;     /// full-name
     QString skillName1;
     QString skillName2;
     int skillLevel;

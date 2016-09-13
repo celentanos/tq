@@ -53,6 +53,7 @@ private slots:
 
     void on_butRead_clicked();
     void on_butWrite_clicked();
+    void on_butSetCharFilePath_clicked();
 };
 
 #endif // MAINWINDOW_H

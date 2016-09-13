@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>400</width>
     <height>600</height>
    </rect>
   </property>
@@ -51,11 +51,8 @@
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="butSetCharFilePath">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
         <property name="text">
-         <string>set character file-path</string>
+         <string>file-path</string>
         </property>
        </widget>
       </item>
@@ -113,7 +110,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>400</width>
      <height>21</height>
     </rect>
    </property>

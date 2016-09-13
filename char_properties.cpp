@@ -11,6 +11,7 @@ CharProperties::CharProperties()
     this->append(new CharProperty("money", "money", CharProperty::PROP_WRITE));
     this->append(new CharProperty("modifierPoints", "modifier points", CharProperty::PROP_WRITE));
     this->append(new CharProperty("skillPoints", "skill points", CharProperty::PROP_WRITE));
+    this->append(new CharProperty("numberOfDeaths", "number of deaths", CharProperty::PROP_WRITE));
 }
 
 CharProperties::~CharProperties()

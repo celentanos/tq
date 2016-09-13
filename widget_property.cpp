@@ -54,7 +54,9 @@ WidgetProperty::WidgetProperty(QWidget *parent, QString name, CharProperty::PROP
     this->pName->setText(name);
     this->pName->setMinimumWidth(120);
     this->valOld->setText("-");
-    this->valOld->setMinimumWidth(80);
+    this->valOld->setMinimumWidth(100);
+    this->valOld->setFrameShape(QFrame::Panel);
+    this->valOld->setFrameShadow(QFrame::Sunken);
     this->valNew->setMaximumWidth(100);
     valNew->setStyleSheet("QLineEdit { background: rgb(240, 240, 255) }");
 

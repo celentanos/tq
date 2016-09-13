@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     name = "MainWindow";
     filePath = "";
     ui->setupUi(this);
+    this->setFixedSize(this->size());
     this->setAcceptDrops(true); // file prop
 
     log = Log::getInstance();
@@ -73,19 +74,6 @@ void MainWindow::slotResetSkills()
     player->resetSkills();
 }
 
-void MainWindow::setPath(QString &path, QLineEdit &le)
-{
-    QString s = QFileDialog::getExistingDirectory(this, "Directory", "./", QFileDialog::ShowDirsOnly);
-    if(s.at(s.size() - 1) != '/') {
-        s += '/';
-        path = s;
-        le.setText(s);
-        return;
-    }
-    path = s;
-    le.setText(s);
-}
-
 void MainWindow::initGui()
 {
     wProperties = new WidgetProperties(player->getProperties(), this);
@@ -145,4 +133,18 @@ void MainWindow::on_butWrite_clicked()
     }
     file.write(*player->getCharacter());
 //    file.close();
+}
+
+void MainWindow::on_butSetCharFilePath_clicked()
+{
+    setPath(filePath, *ui->leCharFilePath);
+}
+
+void MainWindow::setPath(QString &path, QLineEdit &le)
+{
+    QString s = QFileDialog::getOpenFileName(this, "Directory", "./");
+    if(s == "")
+        return;
+    path = s;
+    le.setText(s);
 }

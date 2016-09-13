@@ -19,6 +19,7 @@ public:
         CHAR_MONEY,
         CHAR_MODIFIER_POINTS,
         CHAR_SKILL_POINTS,
+        CHAR_NUM_OF_DEATHS,
         CHAR_NUMBER
     };
 
