@@ -44,20 +44,23 @@ WidgetProperty::WidgetProperty(QWidget *parent, QString name, CharProperty::PROP
     this->valOld = new QLabel;
     this->valNew = new QLineEdit;
 
+    this->hbox->addStretch(-1);
     this->hbox->addWidget(this->pName);
     this->hbox->addWidget(this->valOld);
     this->hbox->addWidget(this->valNew);
-    this->hbox->addStretch(-1);
 
     this->hbox->setMargin(1);
+    this->hbox->setAlignment(this->hbox, Qt::AlignRight);
 
     this->pName->setText(name);
-    this->pName->setMinimumWidth(120);
+    this->pName->setAlignment(Qt::AlignRight);
     this->valOld->setText("-");
     this->valOld->setMinimumWidth(100);
     this->valOld->setFrameShape(QFrame::Panel);
     this->valOld->setFrameShadow(QFrame::Sunken);
+    this->valOld->setAlignment(Qt::AlignRight);
     this->valNew->setMaximumWidth(100);
+    this->valNew->setAlignment(Qt::AlignRight);
     valNew->setStyleSheet("QLineEdit { background: rgb(240, 240, 255) }");
 
     if(access == CharProperty::PROP_READ) {
