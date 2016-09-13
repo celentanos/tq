@@ -33,7 +33,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabChar">
        <attribute name="title">
@@ -46,6 +46,9 @@
         <string>log</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <property name="spacing">
+         <number>2</number>
+        </property>
         <property name="leftMargin">
          <number>2</number>
         </property>
