@@ -2,5 +2,5 @@
 *.debug
 *.pro.user
 *.gitignore~
-bin/weatherDataParser*
+bin/*
 .~*
