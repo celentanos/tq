@@ -45,8 +45,8 @@ void Character::resetSkills()
             iSkills++;
         }
     }
-    if(iSkills == 0 && properties->at(CharProperties::CHAR_SKILL_POINTS)->getValOld() == (properties->at(CharProperties::CHAR_PLAYER_LEVEL)->getValOld() - 1) * SKILLS_PER_LEVEL ||
-       properties->at(CharProperties::CHAR_PLAYER_LEVEL)->getValOld() == 0) {
+    if((iSkills == 0 && properties->at(CharProperties::CHAR_SKILL_POINTS)->getValOld() == (properties->at(CharProperties::CHAR_PLAYER_LEVEL)->getValOld() - 1) * SKILLS_PER_LEVEL) ||
+       !properties->at(CharProperties::CHAR_PLAYER_LEVEL)->getValid()) {
         Log::getInstance()->log(Log::INFO, name, __FUNCTION__, "no skills found!");
         return;
     }
