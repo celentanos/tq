@@ -2,7 +2,7 @@
 
 CharProperties::CharProperties()
 {
-    name = "CharPropertyList";
+    name = "CharProperties";
 
 //    this->append(new CharPropertyString("playerCharacterClass", 4));
 //    this->append(new CharPropertyString("myPlayerName", 4));
