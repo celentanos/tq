@@ -10,8 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     name = "MainWindow";
     filePath = "";
     ui->setupUi(this);
+//    delete ui->menuBar;
+//    delete ui->mainToolBar;
     this->setFixedSize(this->size());
-    this->setAcceptDrops(true); // file prop
+    this->setAcceptDrops(true);         /// file prop
 
     log = Log::getInstance();
     connect(log, &Log::signalAddLog, this, &MainWindow::slotAddLogMsg);
@@ -22,8 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // INIT System #############################################################
 
     this->player = new Character;
-//    this->properties = new CharProperties;
-//    this->skills = new CharSkills;
     connect(ui->butResetSkills, &QPushButton::clicked, this, &MainWindow::slotResetSkills);
     initGui();
 }
@@ -132,7 +132,6 @@ void MainWindow::on_butWrite_clicked()
         return;
     }
     file.write(*player->getCharacter());
-//    file.close();
 }
 
 void MainWindow::on_butSetCharFilePath_clicked()

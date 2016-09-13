@@ -32,10 +32,7 @@ private:
 
     QString filePath;
     WidgetProperties *wProperties;
-
     Character *player;
-//    CharProperties *properties;
-//    CharSkills *skills;
 
     void dropEvent(QDropEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
