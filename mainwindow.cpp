@@ -15,6 +15,14 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setFixedSize(this->size());
     this->setAcceptDrops(true);         /// file prop
 
+    // butResetSkills ----------------------------------------------------------
+    QPalette pal = ui->butResetSkills->palette();
+    pal.setColor(QPalette::Button, QColor(Qt::red));
+    ui->butResetSkills->setAutoFillBackground(true);
+    ui->butResetSkills->setPalette(pal);
+    ui->butResetSkills->update();
+//    ui->butResetSkills->setStyleSheet("QPushButton { background-color: rgb(255, 220, 220) }");
+
     log = Log::getInstance();
     connect(log, &Log::signalAddLog, this, &MainWindow::slotAddLogMsg);
 

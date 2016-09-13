@@ -90,7 +90,28 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <spacer name="horizontalSpacer">
+       <widget class="QPushButton" name="butResetSkills">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>8</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string>reset all skills and classes</string>
+        </property>
+        <property name="text">
+         <string>reset skills</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -101,13 +122,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="butResetSkills">
-        <property name="text">
-         <string>reset skills</string>
-        </property>
-       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="butWrite">
