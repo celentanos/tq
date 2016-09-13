@@ -1,0 +1,6 @@
+*.csv
+*.debug
+*.pro.user
+*.gitignore~
+bin/weatherDataParser*
+.~*
