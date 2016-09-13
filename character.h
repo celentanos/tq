@@ -7,6 +7,8 @@
 #include "char_properties.h"
 #include "char_skills.h"
 
+#define SKILLS_PER_LEVEL    3
+
 class Character
 {
 private:
