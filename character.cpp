@@ -21,6 +21,12 @@ QByteArray Character::getBaLittleFromInt(int val)
 
 void Character::clearAll()
 {
+    for (int i = 0; i < properties->size(); ++i) {
+        properties->at(i)->setValOld(0);
+        properties->at(i)->setValNew(0);
+        properties->at(i)->setValOffset(0);
+        properties->at(i)->setValid(0);
+    }
     qDeleteAll(skills->begin(), skills->end());
     skills->clear();
 }

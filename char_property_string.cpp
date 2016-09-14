@@ -1,23 +1,23 @@
 #include "char_property_string.h"
 
-QByteArray CharPropertyString::getBaValueOld() const
+QByteArray CharPropertyString::getBaValOld() const
 {
-    return baValueOld;
+    return baValOld;
 }
 
-void CharPropertyString::setBaValueOld(const QByteArray &value)
+void CharPropertyString::setBaValOld(const QByteArray &value)
 {
-    baValueOld = value;
+    baValOld = value;
 }
 
-QByteArray CharPropertyString::getBaValueNew() const
+QByteArray CharPropertyString::getBaValNew() const
 {
-    return baValueNew;
+    return baValNew;
 }
 
-void CharPropertyString::setBaValueNew(const QByteArray &value)
+void CharPropertyString::setBaValNew(const QByteArray &value)
 {
-    baValueNew = value;
+    baValNew = value;
 }
 
 CharPropertyString::CharPropertyString(QByteArray property, QString name, PROP_ACCESS access) : CharProperty (property, name, access)

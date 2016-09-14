@@ -46,6 +46,7 @@ public:
     void setSValueNew(const QString &value);
 
     QByteArray getProperty() const;
+    QString getPropertyName() const;
     int getValOld() const;
     void setValOld(const int &value);
     int getValOffset() const;
@@ -53,11 +54,8 @@ public:
     int getValid() const;
     void setValid(int value);
     int getValLength() const;
-    void setValLength(const int &value);
     int getValNew() const;
     int setValNew(int value);
-
-    QString getPropertyName() const;
 
     CharProperty::PROP_ACCESS getAccess() const;
 

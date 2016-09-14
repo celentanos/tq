@@ -42,11 +42,6 @@ int CharProperty::getValLength() const
     return valLength;
 }
 
-void CharProperty::setValLength(const int &value)
-{
-    valLength = value;
-}
-
 int CharProperty::getValNew() const
 {
     return valNew;
