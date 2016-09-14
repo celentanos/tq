@@ -11,6 +11,9 @@
 #include "log.h"
 #include "char_property.h"
 
+#define WIDGET_WEIGHT   100
+#define LABEL_HEIGHT    24
+
 class WidgetProperty : public QWidget
 {
     Q_OBJECT

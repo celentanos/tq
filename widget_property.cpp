@@ -54,15 +54,17 @@ WidgetProperty::WidgetProperty(QWidget *parent, QString name, CharProperty::PROP
 
     this->pName->setText(name);
     this->pName->setAlignment(Qt::AlignRight);
+    this->pName->setMaximumHeight(LABEL_HEIGHT);
 
     this->valOld->setText("-");
-    this->valOld->setMinimumWidth(100);
-    this->valOld->setMaximumHeight(24);
+    this->valOld->setMinimumWidth(WIDGET_WEIGHT);
+    this->valOld->setMaximumHeight(LABEL_HEIGHT);
     this->valOld->setFrameShape(QFrame::Panel);
     this->valOld->setFrameShadow(QFrame::Sunken);
     this->valOld->setAlignment(Qt::AlignRight);
+    this->valOld->setStyleSheet("QLabel { background: rgb(220, 220, 220) }");
 
-    this->valNew->setMaximumWidth(100);
+    this->valNew->setMaximumWidth(WIDGET_WEIGHT);
     this->valNew->setAlignment(Qt::AlignRight);
     this->valNew->setStyleSheet("QLineEdit { background: rgb(240, 240, 255) }");
 
