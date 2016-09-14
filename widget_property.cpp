@@ -54,14 +54,17 @@ WidgetProperty::WidgetProperty(QWidget *parent, QString name, CharProperty::PROP
 
     this->pName->setText(name);
     this->pName->setAlignment(Qt::AlignRight);
+
     this->valOld->setText("-");
     this->valOld->setMinimumWidth(100);
+    this->valOld->setMaximumHeight(24);
     this->valOld->setFrameShape(QFrame::Panel);
     this->valOld->setFrameShadow(QFrame::Sunken);
     this->valOld->setAlignment(Qt::AlignRight);
+
     this->valNew->setMaximumWidth(100);
     this->valNew->setAlignment(Qt::AlignRight);
-    valNew->setStyleSheet("QLineEdit { background: rgb(240, 240, 255) }");
+    this->valNew->setStyleSheet("QLineEdit { background: rgb(240, 240, 255) }");
 
     if(access == CharProperty::PROP_READ) {
         this->valNew->setEnabled(false);

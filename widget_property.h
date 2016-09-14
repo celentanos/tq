@@ -23,7 +23,7 @@ private:
     QLineEdit *valNew;
 
 public:
-    explicit WidgetProperty(QWidget *parent, QString pName, CharProperty::PROP_ACCESS access);
+    explicit WidgetProperty(QWidget *parent, QString name, CharProperty::PROP_ACCESS access);
 
     QLabel *getValOld() const;
 
