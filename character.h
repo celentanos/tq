@@ -22,8 +22,24 @@ public:
     Character();
     ~Character();
 
-    static int getIntFromLittle(const QByteArray &ba);
-    static QByteArray getBaLittleFromInt(int val);
+    template<typename T>
+    static int getValFromLittle(const QByteArray &ba) {
+        QDataStream ds(ba);
+        ds.setByteOrder(QDataStream::LittleEndian);
+        T i;
+        ds >> i;
+        return i;
+    }
+
+    template<typename T>
+    static QByteArray getBaLittleFromVal(T val) {
+        QByteArray ba;
+        ba.reserve(sizeof (T));
+        QDataStream ds(&ba, QIODevice::ReadWrite);
+        ds.setByteOrder(QDataStream::LittleEndian);
+        ds << val;
+        return ba;
+    }
 
     void clearAll();
     void resetSkills();

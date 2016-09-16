@@ -1,8 +1,10 @@
 #ifndef CHARPROPERTY_H
 #define CHARPROPERTY_H
 
+#include <QDebug>
 #include <QObject>
 #include <QString>
+#include <QVariant>
 
 #include <limits>
 
@@ -13,10 +15,9 @@ class CharProperty : public QObject
     Q_OBJECT
 public:
     enum PROP_TYPE {
-        PROP_INT,
-        PROP_STRING,
-        PROP_STRING16,
-        PROP_NUMBER
+        TYPE_INT,
+        TYPE_FLOAT,
+        TYPE_NUMBER
     };
 
     enum PROP_ACCESS {
@@ -29,42 +30,40 @@ protected:
     PROP_TYPE type;
     PROP_ACCESS access;
 
-    QByteArray property;    /// property
+    QByteArray propertyString;  /// property
     QString propertyName;
-    int valOld;             /// value
-    int valNew;             /// new value
-    int valOffset;          /// offset in character-bin-file
-    int valLength;          /// property length in bytes
-    int valid;              /// exist
+    QVariant valOld;            /// value
+    QVariant valNew;            /// new value
+    double valMin;
+    double valMax;
+    int valOffset;              /// offset in character-bin-file
+    int valid;                  /// exist
 
 public:
-    CharProperty(QByteArray property, QString name, CharProperty::PROP_ACCESS access, int valLength = 4);
+    CharProperty(QByteArray propertyString, QString name, CharProperty::PROP_TYPE type);
+    CharProperty(QByteArray propertyString, QString name, CharProperty::PROP_TYPE type, double min, double max, CharProperty::PROP_ACCESS access = PROP_WRITE);
+    int getValLength() const;
+    CharProperty::PROP_ACCESS getAccess() const;
+    void clearAll();
 
-    QString getSValueOld() const;
-    void setSValueOld(const QString &value);
-    QString getSValueNew() const;
-    void setSValueNew(const QString &value);
-
-    QByteArray getProperty() const;
+    QByteArray getPropertyString() const;
     QString getPropertyName() const;
-    int getValOld() const;
-    void setValOld(const int &value);
+    QVariant getValOld() const;
+    void setValOld(const QVariant &value);
+    QVariant getValNew() const;
+    void setValNew(const QVariant &value);
     int getValOffset() const;
     void setValOffset(const int &value);
     int getValid() const;
     void setValid(int value);
-    int getValLength() const;
-    int getValNew() const;
-    int setValNew(int value);
-
-    CharProperty::PROP_ACCESS getAccess() const;
 
 public slots:
-    void slotSetValue(int value);
+    void slotSetValNew(const QVariant &value);
 
 signals:
     void signalValOldChanged(QString);
-    void signalValNewChanged(int);
+    void signalValNewChanged(QString);
+    void signalValNewLimit(QString);
 };
 
 #endif // CHARPROPERTY_H

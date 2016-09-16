@@ -20,7 +20,6 @@ SOURCES += main.cpp\
     widget_property.cpp \
     widget_properties.cpp \
     char_skill.cpp \
-    char_property_string.cpp \
     char_properties.cpp \
     char_skills.cpp \
     character.cpp
@@ -31,7 +30,6 @@ HEADERS  += mainwindow.h \
     widget_property.h \
     widget_properties.h \
     char_skill.h \
-    char_property_string.h \
     char_properties.h \
     char_skills.h \
     character.h

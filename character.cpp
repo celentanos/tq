@@ -1,32 +1,19 @@
 #include "character.h"
 
-int Character::getIntFromLittle(const QByteArray &ba)
-{
-    QDataStream ds(ba);
-    ds.setByteOrder(QDataStream::LittleEndian);
-    int i;
-    ds >> i;
-    return i;
-}
-
-QByteArray Character::getBaLittleFromInt(int val)
-{
-    QByteArray ba;
-    ba.reserve(4);
-    QDataStream ds(&ba, QIODevice::ReadWrite);
-    ds.setByteOrder(QDataStream::LittleEndian);
-    ds << val;
-    return ba;
-}
+//int Character::getIntFromLittle(const QByteArray &ba)
+//{
+//    QDataStream ds(ba);
+//    ds.setByteOrder(QDataStream::LittleEndian);
+//    int i;
+//    ds >> i;
+//    return i;
+//}
 
 void Character::clearAll()
 {
-    for (int i = 0; i < properties->size(); ++i) {
-        properties->at(i)->setValOld(0);
-        properties->at(i)->setValNew(0);
-        properties->at(i)->setValOffset(0);
-        properties->at(i)->setValid(0);
-    }
+    for (int i = 0; i < properties->size(); ++i)
+        properties->at(i)->clearAll();
+
     qDeleteAll(skills->begin(), skills->end());
     skills->clear();
 }
@@ -66,7 +53,7 @@ void Character::resetSkills()
     parseSkills();
 
     properties->at(CharProperties::CHAR_MAX_SKILLS)->setValNew(
-        properties->at(CharProperties::CHAR_MAX_SKILLS)->getValOld() - skillNumber);
+        properties->at(CharProperties::CHAR_MAX_SKILLS)->getValOld().toInt() - skillNumber);
 
     properties->at(CharProperties::CHAR_SKILL_POINTS)->setValNew(skillPoints);
 }
@@ -74,14 +61,14 @@ void Character::resetSkills()
 void Character::parseProperties()
 {
     for (int i = 0; i < properties->size(); ++i) {
-        int pos = character->indexOf(properties->getProperty(i)->getProperty());
+        int pos = character->indexOf(properties->getProperty(i)->getPropertyString());
         if(pos < 0) {
-            Log::getInstance()->log(Log::FAILURE, name, __FUNCTION__, "no property: " + properties->getProperty(i)->getProperty() + " found!");
+            Log::getInstance()->log(Log::FAILURE, name, __FUNCTION__, "no property: " + properties->getProperty(i)->getPropertyString() + " found!");
             return;
         }
-        properties->getProperty(i)->setValOffset(pos + properties->getProperty(i)->getProperty().size());
+        properties->getProperty(i)->setValOffset(pos + properties->getProperty(i)->getPropertyString().size());
         properties->getProperty(i)->setValid(true);
-        properties->getProperty(i)->setValOld(getIntFromLittle(character->mid(
+        properties->getProperty(i)->setValOld(getValFromLittle<int>(character->mid(
                 properties->getProperty(i)->getValOffset(),
                 properties->getProperty(i)->getValLength())));
     }
@@ -90,7 +77,7 @@ void Character::parseProperties()
 void Character::parseSkills()
 {
     int posBegin = 0;
-    for(int i = 0; i < properties->getProperty(CharProperties::CHAR_MAX_SKILLS)->getValOld(); ++i) {
+    for(int i = 0; i < properties->getProperty(CharProperties::CHAR_MAX_SKILLS)->getValOld().toInt(); ++i) {
         CharSkill *skill = new CharSkill;
         int posEnd = 0;
         int posBegin2 = 0;
@@ -115,9 +102,9 @@ void Character::parseSkills()
                 Log::getInstance()->log(Log::FAILURE, name, __FUNCTION__, "no skillName found!");
                 return;
             }
-            int skillNameLength = getIntFromLittle(character->mid(
-                    skillNameOffset + skill->getSkillNameString().size(),
-                    INT_LENGTH));
+            int skillNameLength = getValFromLittle<int>(character->mid(
+                                      skillNameOffset + skill->getSkillNameString().size(),
+                                      INT_LENGTH));
             skill->setSkillName0(character->mid(
                                      skillNameOffset + skill->getSkillNameString().size() + INT_LENGTH,
                                      skillNameLength));
@@ -127,9 +114,9 @@ void Character::parseSkills()
                 Log::getInstance()->log(Log::FAILURE, name, __FUNCTION__, "no skillLevel found!");
                 return;
             }
-            skill->setSkillLevel(getIntFromLittle(character->mid(
-                    skillLevelOffset + skill->getSkillLevelString().size(),
-                    INT_LENGTH)));
+            skill->setSkillLevel(getValFromLittle<int>(character->mid(
+                                     skillLevelOffset + skill->getSkillLevelString().size(),
+                                     INT_LENGTH)));
             // offsets ---------------------------------------------------------
             skill->setOffsetBegin(posBegin - INT_LENGTH);
             skill->setOffsetEnd(posEnd + INT_LENGTH);

@@ -87,9 +87,10 @@ void MainWindow::initGui()
     wProperties = new WidgetProperties(player->getProperties(), this);
     for (int i = 0; i < player->getProperties()->size(); ++i) {
         ui->tabChar->layout()->addWidget(wProperties->at(i));
-        connect(wProperties->at(i), &WidgetProperty::signalSetValue, player->getProperties()->at(i), &CharProperty::slotSetValue);
+        connect(wProperties->at(i), &WidgetProperty::signalSetValue, player->getProperties()->at(i), &CharProperty::slotSetValNew);
         connect(player->getProperties()->at(i), &CharProperty::signalValOldChanged, wProperties->at(i)->getValOld(), &QLabel::setText);
         connect(player->getProperties()->at(i), &CharProperty::signalValNewChanged, wProperties->at(i), &WidgetProperty::slotSetValue);
+        connect(player->getProperties()->at(i), &CharProperty::signalValNewLimit, wProperties->at(i), &WidgetProperty::slotSetValueLimit);
     }
     ui->tabChar->layout()->addItem(new QSpacerItem(-1, -1, QSizePolicy::Fixed, QSizePolicy::Expanding));
 }
@@ -111,7 +112,7 @@ void MainWindow::on_butRead_clicked()
     // Properties ##############################################################
     player->parseProperties();
     for (int i = 0; i < player->getProperties()->size(); ++i)
-        qDebug() << player->getProperties()->getProperty(i)->getProperty() << player->getProperties()->getProperty(i)->getValOld();
+        qDebug() << player->getProperties()->getProperty(i)->getPropertyString() << player->getProperties()->getProperty(i)->getValOld();
     // Skills ##################################################################
     player->parseSkills();
     for (int i = 0; i < player->getSkills()->size(); ++i)
@@ -126,7 +127,7 @@ void MainWindow::on_butWrite_clicked()
             *player->getCharacter() = player->getCharacter()->replace(
                                           player->getProperties()->at(i)->getValOffset(),
                                           player->getProperties()->at(i)->getValLength(),
-                                          Character::getBaLittleFromInt(player->getProperties()->at(i)->getValNew()));
+                                          Character::getBaLittleFromVal(player->getProperties()->at(i)->getValNew().toInt()));
             count++;
         }
     }

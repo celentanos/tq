@@ -12,31 +12,34 @@ QLineEdit *WidgetProperty::getValNew() const
 
 void WidgetProperty::slotSetValueIntern()
 {
-    bool b;
-    valNew->text().toInt(&b);
-    if(!b) {
-        valNew->setStyleSheet("QLineEdit { background: rgb(255, 220, 220) }");
-        valNew->setText("overflow!");
-        Log::getInstance()->log(Log::FAILURE, name, __FUNCTION__, "int-convert failed!");
-        return;
-    }
     if(valNew->text() == valOld->text())
-        valNew->setStyleSheet("QLineEdit { background: rgb(240, 240, 255) }");
+        valNew->setStyleSheet(LE_BLUE);
     else
-        valNew->setStyleSheet("QLineEdit { background: rgb(240, 255, 240) }");
-    emit signalSetValue(valNew->text().toInt(&b));
+        valNew->setStyleSheet(LE_GREEN);
+    emit signalSetValue(valNew->text());
 }
 
-void WidgetProperty::slotSetValue(int val)
+void WidgetProperty::slotEditedValueIntern()
 {
-    valNew->setText(QString::number(val));
-    if(QString::number(val) == valOld->text())
-        valNew->setStyleSheet("QLineEdit { background: rgb(240, 240, 255) }");
-    else
-        valNew->setStyleSheet("QLineEdit { background: rgb(240, 255, 240) }");
+    valNew->setStyleSheet(LE_CYAN);
 }
 
-WidgetProperty::WidgetProperty(QWidget *parent, QString name, CharProperty::PROP_ACCESS access) : QWidget(parent)
+void WidgetProperty::slotSetValue(QString val)
+{
+    valNew->setText(val);
+    if(val == valOld->text())
+        valNew->setStyleSheet(LE_BLUE);
+    else
+        valNew->setStyleSheet(LE_GREEN);
+}
+
+void WidgetProperty::slotSetValueLimit(QString val)
+{
+    valNew->setText(val);
+    valNew->setStyleSheet(LE_YELLOW);
+}
+
+WidgetProperty::WidgetProperty(QWidget *parent, CharProperty *property) : QWidget(parent)
 {
     this->name = "WidgetProperty";
     this->hbox = new QHBoxLayout;
@@ -52,9 +55,11 @@ WidgetProperty::WidgetProperty(QWidget *parent, QString name, CharProperty::PROP
     this->hbox->setMargin(1);
     this->hbox->setAlignment(this->hbox, Qt::AlignRight);
 
-    this->pName->setText(name);
+    this->pName->setText(property->getPropertyName());
     this->pName->setAlignment(Qt::AlignRight);
     this->pName->setMaximumHeight(LABEL_HEIGHT);
+    if(property->getPropertyString() == "numberOfSacks")
+        this->pName->setStyleSheet("QLabel { color: rgb(255, 0, 0) }");
 
     this->valOld->setText("-");
     this->valOld->setMinimumWidth(WIDGET_WEIGHT);
@@ -66,14 +71,17 @@ WidgetProperty::WidgetProperty(QWidget *parent, QString name, CharProperty::PROP
 
     this->valNew->setMaximumWidth(WIDGET_WEIGHT);
     this->valNew->setAlignment(Qt::AlignRight);
-    this->valNew->setStyleSheet("QLineEdit { background: rgb(240, 240, 255) }");
+    this->valNew->setStyleSheet(LE_BLUE);
+    if(property->getPropertyString() == "numberOfSacks")
+        this->valNew->setToolTip("WARNING! You items will be deleted! At first: save this by handler!");
 
-    if(access == CharProperty::PROP_READ) {
+    if(property->getAccess() == CharProperty::PROP_READ) {
         this->valNew->setEnabled(false);
-        valNew->setStyleSheet("QLineEdit { background: rgb(255, 240, 240) }");
+        valNew->setStyleSheet(LE_RED);
     }
 
     this->setLayout(this->hbox);
 
-    connect(this->valNew, &QLineEdit::textEdited, this, &WidgetProperty::slotSetValueIntern);
+    connect(this->valNew, &QLineEdit::returnPressed, this, &WidgetProperty::slotSetValueIntern);
+    connect(this->valNew, &QLineEdit::textEdited, this, &WidgetProperty::slotEditedValueIntern);
 }

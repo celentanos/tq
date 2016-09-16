@@ -3,9 +3,10 @@
 
 #include <QList>
 
+#include <limits>
+
 #include "log.h"
 #include "char_property.h"
-#include "char_property_string.h"
 
 class CharProperties : public QList<CharProperty *>
 {
@@ -14,7 +15,8 @@ private:
 
 public:
     enum CHAR {
-        CHAR_PLAYER_LEVEL,
+        CHAR_LEVEL,
+        CHAR_EXP_POINTS,
         CHAR_MAX_SKILLS,
         CHAR_MONEY,
         CHAR_MODIFIER_POINTS,
