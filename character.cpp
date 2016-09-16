@@ -43,17 +43,22 @@ CharSkills *Character::getSkills() const
 
 void Character::resetSkills()
 {
-    int iSkills = 0;
+    if(skills->size() == 0) {
+        Log::getInstance()->log(Log::INFO, name, __FUNCTION__, "no skills found!");
+        return;
+    }
+    int skillNumber = 0;
+    int skillPoints = 0;
     for (int i = 0; i < skills->size(); ++i) {
         if(skillList.contains(skills->at(i)->getSkillName1().toLower())) {
             character->remove(skills->at(i)->getOffsetBegin(),
                               skills->at(i)->getOffsetEnd() - skills->at(i)->getOffsetBegin());
-            iSkills++;
+            skillPoints += skills->at(i)->getSkillLevel();
+            skillNumber++;
         }
     }
-    if((iSkills == 0 && properties->at(CharProperties::CHAR_SKILL_POINTS)->getValOld() == (properties->at(CharProperties::CHAR_PLAYER_LEVEL)->getValOld() - 1) * SKILLS_PER_LEVEL) ||
-       !properties->at(CharProperties::CHAR_PLAYER_LEVEL)->getValid()) {
-        Log::getInstance()->log(Log::INFO, name, __FUNCTION__, "no skills found!");
+    if(skillNumber == 0) {
+        Log::getInstance()->log(Log::INFO, name, __FUNCTION__, "no resetable skills found!");
         return;
     }
     clearAll();
@@ -61,10 +66,9 @@ void Character::resetSkills()
     parseSkills();
 
     properties->at(CharProperties::CHAR_MAX_SKILLS)->setValNew(
-        properties->at(CharProperties::CHAR_MAX_SKILLS)->getValOld() - iSkills);
+        properties->at(CharProperties::CHAR_MAX_SKILLS)->getValOld() - skillNumber);
 
-    properties->at(CharProperties::CHAR_SKILL_POINTS)->setValNew(
-        (properties->at(CharProperties::CHAR_PLAYER_LEVEL)->getValOld() - 1) * SKILLS_PER_LEVEL);
+    properties->at(CharProperties::CHAR_SKILL_POINTS)->setValNew(skillPoints);
 }
 
 void Character::parseProperties()
@@ -102,16 +106,21 @@ void Character::parseSkills()
                 posBegin++;
                 continue;
             }
-            int iSkillNameOffset = character->indexOf(skill->getSkillNameString(), posBegin);
-            int iSkillNameLength = getIntFromLittle(character->mid(
-                    iSkillNameOffset + skill->getSkillNameString().size(),
+            // skillName -------------------------------------------------------
+            int skillNameOffset = character->indexOf(skill->getSkillNameString(), posBegin);
+            if(skillNameOffset > posEnd) {
+                posBegin++;
+                continue;
+            } else if(skillNameOffset == -1) {
+                Log::getInstance()->log(Log::FAILURE, name, __FUNCTION__, "no skillName found!");
+                return;
+            }
+            int skillNameLength = getIntFromLittle(character->mid(
+                    skillNameOffset + skill->getSkillNameString().size(),
                     INT_LENGTH));
             skill->setSkillName0(character->mid(
-                                     iSkillNameOffset + skill->getSkillNameString().size() + INT_LENGTH,
-                                     iSkillNameLength));
-            skill->setOffsetBegin(posBegin - INT_LENGTH);
-            skill->setOffsetEnd(posEnd + INT_LENGTH);
-
+                                     skillNameOffset + skill->getSkillNameString().size() + INT_LENGTH,
+                                     skillNameLength));
             // skillLevel ------------------------------------------------------
             int skillLevelOffset = character->indexOf(skill->getSkillLevelString(), posBegin);
             if(skillLevelOffset > posEnd) {
@@ -121,6 +130,9 @@ void Character::parseSkills()
             skill->setSkillLevel(getIntFromLittle(character->mid(
                     skillLevelOffset + skill->getSkillLevelString().size(),
                     INT_LENGTH)));
+            // offsets ---------------------------------------------------------
+            skill->setOffsetBegin(posBegin - INT_LENGTH);
+            skill->setOffsetEnd(posEnd + INT_LENGTH);
 
             skills->append(skill);
             posBegin++;
