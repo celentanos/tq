@@ -1,5 +1,19 @@
 #include "char_property.h"
 
+CharProperty::CharProperty(QByteArray property, QString name, CharProperty::PROP_ACCESS access, int valLength)
+{
+    this->name = "CharProperty";
+    this->type = PROP_INT;
+    this->access = access;
+
+    this->property = property;
+    this->propertyName = name;
+    this->valLength = valLength;
+    this->valOld = 0;
+    this->valOffset = 0;
+    this->valid = false;
+}
+
 QByteArray CharProperty::getProperty() const
 {
     return property;
@@ -71,20 +85,6 @@ QString CharProperty::getPropertyName() const
 CharProperty::PROP_ACCESS CharProperty::getAccess() const
 {
     return access;
-}
-
-CharProperty::CharProperty(QByteArray property, QString name, CharProperty::PROP_ACCESS access, int valLength)
-{
-    this->name = "CharProperty";
-    this->type = PROP_INT;
-    this->access = access;
-
-    this->property = property;
-    this->propertyName = name;
-    this->valLength = valLength;
-    this->valOld = 0;
-    this->valOffset = 0;
-    this->valid = false;
 }
 
 QString CharProperty::getSValueOld() const
