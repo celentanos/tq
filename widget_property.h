@@ -35,9 +35,7 @@ public:
     explicit WidgetProperty(QWidget *parent, CharProperty *property);
 
     QLabel *getValOld() const;
-
     QLineEdit *getValNew() const;
-
     QPushButton *getButSet() const;
 
 signals:
