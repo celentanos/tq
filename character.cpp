@@ -91,26 +91,36 @@ void Character::parseSkills()
         int posEnd = 0;
         int posBegin2 = 0;
         while(1) {
-            posBegin = character->indexOf(skill->getBlockBegin(), posBegin);
+            posBegin = character->indexOf(skill->getBlockBeginString(), posBegin);
             if(posBegin == -1) {
                 delete skill;
                 break;
             }
-            posEnd = character->indexOf(skill->getBlockEnd(), posBegin);
-            posBegin2 = character->indexOf(skill->getBlockBegin(), posBegin + 1);
+            posEnd = character->indexOf(skill->getBlockEndString(), posBegin);
+            posBegin2 = character->indexOf(skill->getBlockBeginString(), posBegin + 1);
             if (posBegin2 != -1 && posBegin2 < posEnd) {
                 posBegin++;
                 continue;
             }
-            int iSkillNameOffset = character->indexOf(skill->getSkillName(), posBegin);
+            int iSkillNameOffset = character->indexOf(skill->getSkillNameString(), posBegin);
             int iSkillNameLength = getIntFromLittle(character->mid(
-                    iSkillNameOffset + skill->getSkillName().size(),
+                    iSkillNameOffset + skill->getSkillNameString().size(),
                     INT_LENGTH));
             skill->setSkillName0(character->mid(
-                                     iSkillNameOffset + skill->getSkillName().size() + INT_LENGTH,
+                                     iSkillNameOffset + skill->getSkillNameString().size() + INT_LENGTH,
                                      iSkillNameLength));
             skill->setOffsetBegin(posBegin - INT_LENGTH);
             skill->setOffsetEnd(posEnd + INT_LENGTH);
+
+            // skillLevel ------------------------------------------------------
+            int skillLevelOffset = character->indexOf(skill->getSkillLevelString(), posBegin);
+            if(skillLevelOffset > posEnd) {
+                Log::getInstance()->log(Log::FAILURE, name, __FUNCTION__, "no skillLevel found!");
+                return;
+            }
+            skill->setSkillLevel(getIntFromLittle(character->mid(
+                    skillLevelOffset + skill->getSkillLevelString().size(),
+                    INT_LENGTH)));
 
             skills->append(skill);
             posBegin++;

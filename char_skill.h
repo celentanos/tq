@@ -15,14 +15,15 @@ private:
     QString name;
 
     int skillLength;
-    QByteArray skillName;
+    QByteArray skillNameString;
     QString skillName0;     /// full-name
     QString skillName1;
     QString skillName2;
+    QByteArray skillLevelString;
     int skillLevel;
 
-    QByteArray blockBegin;
-    QByteArray blockEnd;
+    QByteArray blockBeginString;
+    QByteArray blockEndString;
     int offsetBegin;
     int offsetEnd;
 
@@ -36,13 +37,14 @@ public:
     void setSkillLevel(int value);
     int getSkillLength() const;
     void setSkillLength(int value);
-    QByteArray getSkillName() const;
-    QByteArray getBlockBegin() const;
-    QByteArray getBlockEnd() const;
+    QByteArray getSkillNameString() const;
+    QByteArray getBlockBeginString() const;
+    QByteArray getBlockEndString() const;
     QString getSkillName0() const;
     void setSkillName0(const QString &value);
     QString getSkillName1() const;
     QString getSkillName2() const;
+    QByteArray getSkillLevelString() const;
 };
 
 #endif // CHARSKILL_H

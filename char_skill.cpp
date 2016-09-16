@@ -40,19 +40,19 @@ void CharSkill::setSkillLength(int value)
     skillLength = value;
 }
 
-QByteArray CharSkill::getSkillName() const
+QByteArray CharSkill::getSkillNameString() const
 {
-    return skillName;
+    return skillNameString;
 }
 
-QByteArray CharSkill::getBlockBegin() const
+QByteArray CharSkill::getBlockBeginString() const
 {
-    return blockBegin;
+    return blockBeginString;
 }
 
-QByteArray CharSkill::getBlockEnd() const
+QByteArray CharSkill::getBlockEndString() const
 {
-    return blockEnd;
+    return blockEndString;
 }
 
 QString CharSkill::getSkillName0() const
@@ -99,11 +99,17 @@ QString CharSkill::getSkillName2() const
     return skillName2;
 }
 
+QByteArray CharSkill::getSkillLevelString() const
+{
+    return skillLevelString;
+}
+
 CharSkill::CharSkill()
 {
     name = "CharSkill";
 
-    skillName = "skillName";
-    blockBegin = "begin_block";
-    blockEnd = "end_block";
+    skillNameString = "skillName";
+    skillLevelString = "skillLevel";
+    blockBeginString = "begin_block";
+    blockEndString = "end_block";
 }

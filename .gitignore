@@ -2,5 +2,6 @@
 *.debug
 *.pro.user
 *.gitignore~
+*.autosave
 bin/*
 .~*
