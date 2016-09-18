@@ -71,16 +71,10 @@ void CharSkill::setSkillName0(const QString &value)
         Log::getInstance()->log(Log::FAILURE, name, __FUNCTION__, "to few skill-items!");
         return;
     }
-    if(items.size() == SKILL_ITEMS)
-        skillName1 = items.at(2);
-    else if(items.size() == SKILL_ITEMS_XPACK)
-        skillName1 = items.at(3);
+    skillName1 = items.at(items.size() - 2);            // vorletzter
 
     QStringList items2;
-    if(items.size() == SKILL_ITEMS)
-        items2 = items.at(3).split(".");
-    else if(items.size() == SKILL_ITEMS_XPACK)
-        items2 = items.at(4).split(".");
+    items2 = items.at(items.size() - 1).split(".");     // letzter
 
     if(items2.size() < 2) {
         Log::getInstance()->log(Log::FAILURE, name, __FUNCTION__, "to few skill-items2!");
