@@ -33,13 +33,19 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabChar">
        <attribute name="title">
         <string>character</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_7"/>
+      </widget>
+      <widget class="QWidget" name="tabInventory">
+       <attribute name="title">
+        <string>inventory</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout"/>
       </widget>
       <widget class="QWidget" name="tabLog">
        <attribute name="title">
@@ -161,7 +167,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>

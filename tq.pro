@@ -22,7 +22,10 @@ SOURCES += main.cpp\
     char_skill.cpp \
     char_properties.cpp \
     char_skills.cpp \
-    character.cpp
+    character.cpp \
+    inventory_scene.cpp \
+    go_cell.cpp \
+    inventory_view.cpp
 
 HEADERS  += mainwindow.h \
     log.h \
@@ -32,7 +35,10 @@ HEADERS  += mainwindow.h \
     char_skill.h \
     char_properties.h \
     char_skills.h \
-    character.h
+    character.h \
+    inventory_scene.h \
+    go_cell.h \
+    inventory_view.h
 
 FORMS    += mainwindow.ui
 

@@ -34,6 +34,10 @@ MainWindow::MainWindow(QWidget *parent) :
     this->player = new Character;
     connect(ui->butResetSkills, &QPushButton::clicked, this, &MainWindow::slotResetSkills);
     initGui();
+
+    // graphics ----------------------------------------------------------------
+    view = new InventoryView;
+    ui->tabInventory->layout()->addWidget(view);
 }
 
 MainWindow::~MainWindow()

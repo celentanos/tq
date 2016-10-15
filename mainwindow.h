@@ -16,6 +16,8 @@
 #include "character.h"
 #include "widget_properties.h"
 
+#include "inventory_view.h"
+
 namespace Ui
 {
 class MainWindow;
@@ -33,6 +35,9 @@ private:
     QString filePath;
     WidgetProperties *wProperties;
     Character *player;
+
+    // graphics ----------------------------------------------------------------
+    InventoryView *view;
 
     void dropEvent(QDropEvent *event);
     void dragEnterEvent(QDragEnterEvent *event);
