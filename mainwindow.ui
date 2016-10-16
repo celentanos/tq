@@ -45,7 +45,16 @@
        <attribute name="title">
         <string>inventory</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout"/>
+       <widget class="QWidget" name="widget" native="true">
+        <property name="geometry">
+         <rect>
+          <x>9</x>
+          <y>9</y>
+          <width>374</width>
+          <height>442</height>
+         </rect>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tabLog">
        <attribute name="title">

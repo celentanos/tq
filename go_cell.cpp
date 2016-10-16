@@ -19,3 +19,9 @@ void GOCell::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     Q_UNUSED(option);
     Q_UNUSED(widget);
 }
+
+void GOCell::slotCoordinate(QPointF point)
+{
+    this->setX(point.x() - this->boundingRect().width() / 2);
+    this->setY(point.y() - this->boundingRect().height() / 2);
+}

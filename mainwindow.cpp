@@ -37,6 +37,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // graphics ----------------------------------------------------------------
     view = new InventoryView;
+    QVBoxLayout *viewLay = new QVBoxLayout;
+//    viewLay->addStretch(1);
+    ui->tabInventory->setLayout(viewLay);
     ui->tabInventory->layout()->addWidget(view);
 }
 
