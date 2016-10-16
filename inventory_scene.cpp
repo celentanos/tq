@@ -28,9 +28,10 @@ void InventoryScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 //            item->setX(QCursor::pos().x() - item->boundingRect().width() / 2);
 //            item->setY(QCursor::pos().y() - item->boundingRect().height() / 2);
             bounding = true;
-            connect(this, &InventoryScene::signalCursorCoordinate,
-                    dynamic_cast<GOCell *>(item), &GOCell::slotCoordinate);
-
+            GOCell *cell = dynamic_cast<GOCell *>(item);
+            if(cell)
+                connect(this, &InventoryScene::signalCursorCoordinate,
+                        dynamic_cast<GOCell *>(item), &GOCell::slotCoordinate);
         }
     }
     Q_UNUSED(event);
@@ -43,8 +44,15 @@ void InventoryScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         QGraphicsItem *item;
         if((item = this->itemAt(event->scenePos(), trans))) {
             bounding = false;
-            disconnect(this, &InventoryScene::signalCursorCoordinate,
-                       dynamic_cast<GOCell *>(item), &GOCell::slotCoordinate);
+            GOCell *cell = dynamic_cast<GOCell *>(item);
+            if(cell)
+                disconnect(this, &InventoryScene::signalCursorCoordinate,
+                           dynamic_cast<GOCell *>(item), &GOCell::slotCoordinate);
+            else
+                qDebug() << "wrong GO";
+
+            item->setX(((static_cast<int>(item->scenePos().x()) + CELL_H / 2) / CELL_H)*CELL_H);
+            item->setY(((static_cast<int>(item->scenePos().y()) + CELL_H / 2) / CELL_H)*CELL_H);
         }
     }
     Q_UNUSED(event);

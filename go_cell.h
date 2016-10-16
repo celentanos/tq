@@ -5,6 +5,9 @@
 #include <QGraphicsObject>
 #include <QPainter>
 
+#define CELL_W  30
+#define CELL_H  30
+
 class GOCell : public QGraphicsObject
 {
     Q_OBJECT

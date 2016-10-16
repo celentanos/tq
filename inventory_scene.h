@@ -8,6 +8,9 @@
 
 #include "go_cell.h"
 
+#define CELLS_X     12
+#define CELLS_Y     5
+
 class InventoryScene : public QGraphicsScene
 {
     Q_OBJECT
